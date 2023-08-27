@@ -2,12 +2,12 @@ import React, { useState } from 'react';
 
 import './ExpenseForm.css';
 
-const ExpenseForm = () => {
-  // const [userInput, setUserInput] = useState({
-  //   enteredTitle: '',
-  //   enteredAmount: '',
-  //   enteredDate: ''
-  // });
+const ExpenseForm = (props) => {
+  const [userInput, setUserInput] = useState({
+    enteredTitle: '',
+    enteredAmount: '',
+    enteredDate: ''
+  });
 
   const [enteredTitle, setEnteredTitle] = useState('');
 
@@ -57,7 +57,9 @@ const ExpenseForm = () => {
     }
 
     console.log(expenseData);
-
+    
+    //Communicating up to the parent component (NewExpense.js) using props and by passing ExpenseForm.js's expenseData object to the onAddExpense function in NewExpense.js
+    props.onSaveExpenseData(expenseData);
     setEnteredTitle('');
     setEnteredAmount('');
     setEnteredDate('');
@@ -69,15 +71,24 @@ const ExpenseForm = () => {
       <div className='new-expense__controls'>
         <div className='new-expense__control'>
           <label>Title</label>
-          <input type='text' value={setEnteredTitle} onChange={titleChangeHandler} />
+          <input
+            type='text'
+            value={enteredTitle}
+            onChange={titleChangeHandler} />
         </div>
         <div className='new-expense__control'>
           <label>Amount</label>
-          <input type='number' value={setEnteredAmount} min="0.01" step="0.01" onChange={amountChangeHandler} />
+          <input
+            type='number'
+            value={enteredAmount} min="0.01" step="0.01"
+            onChange={amountChangeHandler} />
         </div>
         <div className='new-expense__control'>
           <label>Date</label>
-          <input type='date' value={setEnteredDate} min="2019-01-01" max="2023-12-31" onChange={dateChangeHandler} />
+          <input
+            type='date'
+            value={enteredDate} min="2019-01-01" max="2023-12-31"
+            onChange={dateChangeHandler} />
         </div>
       </div>
       <div className='new-expense__actions'>
